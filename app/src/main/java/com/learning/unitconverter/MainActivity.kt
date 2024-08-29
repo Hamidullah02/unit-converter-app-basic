@@ -14,9 +14,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.learning.unitconverter.ui.theme.UnitConverterTheme
+import kotlin.io.encoding.Base64
 import kotlin.math.roundToInt
 
 class MainActivity : ComponentActivity() {
@@ -50,6 +55,14 @@ fun unitconverter() {
     val conversionfac = remember { mutableStateOf(1.00) }
     val outconversionfac = remember { mutableStateOf(1.00) }
 
+
+    val customtextstyle =TextStyle(
+        fontFamily = FontFamily.Monospace,
+        fontSize =  30.sp,
+        fontWeight = FontWeight.Bold,
+        color = Color.hsl(18.688524f, 0.495935f, 0.48235294f),
+    )
+
     fun convertunits() {
         val inputvaluedouble = inputvalue.toDoubleOrNull() ?: 0.0
         val result = (inputvaluedouble * conversionfac.value / outconversionfac.value * 100.0).roundToInt() / 100.0
@@ -63,16 +76,12 @@ fun unitconverter() {
     ) {
         Text(
             text = "Unit Converter",
+            style = customtextstyle,
             modifier = Modifier
                 .padding(10.dp)
-                .background(
-                    color = Color.hsl(282f, 1f, 0.5f),
-                    shape = RectangleShape
-                )
         )
 
         Spacer(modifier = Modifier.height(16.dp))
-
         OutlinedTextField(
             value = inputvalue,
             onValueChange = {
@@ -180,6 +189,10 @@ fun unitconverter() {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Text(text = "Result: $outvalue")
+        Text(
+            text = "Result: $outvalue",
+            style = MaterialTheme.typography.headlineMedium,
+            color = Color.hsl(18.688524f, 0.495935f, 0.48235294f),
+            )
     }
 }
